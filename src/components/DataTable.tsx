@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 
+interface SalesData {
+  weekEnding: string;
+  retailSales: number;
+  wholesaleSales: number;
+  unitsSold: number;
+  retailerMargin: number;
+}
+
 interface DataTableProps {
-  data: { weekEnding: string, retailSales: number, wholesaleSales: number, unitsSold: number, retailerMargin: number }[];
+  data: SalesData[];
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data }) => {
   const [sortedData, setSortedData] = useState(data);
-  const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'ascending' | 'descending' } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{ key: keyof SalesData, direction: 'ascending' | 'descending' } | null>(null);
 
-  const sortData = (key: string) => {
+  const sortData = (key: keyof SalesData) => {
     let direction: 'ascending' | 'descending' = 'ascending';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
@@ -27,7 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
     setSortConfig(null);
   };
 
-  const getSortIcon = (key: string) => {
+  const getSortIcon = (key: keyof SalesData) => {
     if (!sortConfig || sortConfig.key !== key) {
       return '⬇️';
     }
@@ -37,7 +45,7 @@ const DataTable: React.FC<DataTableProps> = ({ data }) => {
   return (
     <div className="p-4 bg-white shadow-md rounded">
       <div className="flex justify-end mb-2">
-        <button onClick={resetData} className="bg-[#042949] text-white px-2 py-1 rounded">
+        <button onClick={resetData} className="bg-blue-500 text-white px-2 py-1 rounded">
           Reset
         </button>
       </div>
