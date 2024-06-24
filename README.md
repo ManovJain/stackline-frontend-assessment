@@ -9,8 +9,6 @@
 - **React**: JavaScript library for building user interfaces.
 - **TypeScript**: Typed superset of JavaScript that scales.
 
-## Getting Started
-
 ### Prerequisites
 
 - Node.js (v14 or higher)
